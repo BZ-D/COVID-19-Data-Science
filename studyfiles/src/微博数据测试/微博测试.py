@@ -21,9 +21,9 @@ def go():
     sleep(30)  # 手动登录微博
     sumpage = 65  # 2月份共65页
 
-    for page in range(18, sumpage + 1):
+    for page in range(46, sumpage + 1):
         browser.get('https://weibo.com/renminwang?is_all=1&stat_date=202002&page=' + str(page))
-        sleep(8)
+        sleep(7)
 
         getContent(page, browser)
         getComment(page, browser)
@@ -34,7 +34,7 @@ def go():
 def getContent(page, browser):
     # 先scroll三次到最底部，每次scroll后等待4秒，加载全部45条微博内容
     browser.execute_script('window.scrollTo(0,document.body.scrollHeight)')
-    sleep(10)
+    sleep(12)
     commentBtn = browser.find_elements_by_xpath('//ul[@class="WB_row_line WB_row_r4 clearfix S_line2"]/li[3]/a')
     # 找到中间一个评论展开按钮，按一下，更新页面信息
     centralCommentBtn = commentBtn[15]
@@ -59,7 +59,7 @@ def getContent(page, browser):
     html = browser.page_source
 
     contentStr = '第' + str(page) + '页微博正文主页面.txt'
-    content = open(contentStr, 'a', encoding='utf-8')
+    content = open('./二月份微博数据/' + contentStr, 'a', encoding='utf-8')
     content.write(html + '\n')
     content.close()
 
@@ -82,12 +82,12 @@ def getComment(page, browser):
     sleep(1)
     for btn in commentBtn:
         btn.click()
-        sleep(2.5)
+        sleep(3.5)
 
     html = browser.page_source
     # 创建文件
     commentStr = '第' + str(page) + '页微博评论.txt'
-    comment = open(commentStr, 'a', encoding='utf-8')
+    comment = open('./二月份微博数据/' + commentStr, 'a', encoding='utf-8')
     comment.write(html + '\n')
     comment.close()
 
