@@ -24,7 +24,7 @@ def go():
     sleep(30)  # 手动登录微博
     sumpage = 38
 
-    for page in range(29, sumpage + 1):
+    for page in [38]:
         browser.get('https://weibo.com/rmrb?is_all=1&stat_date=202004&page=' + str(page))
         sleep(7)
 
