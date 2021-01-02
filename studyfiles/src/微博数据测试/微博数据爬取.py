@@ -24,11 +24,11 @@ def go():
     browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202003&page=')
     sleep(30)  # 手动登录微博
     sumpage = 38
-    count = 1
+    count = 214
     fw = open(r'C:\Users\Ding\Desktop\Crawler-Studying\studyfiles\src\微博数据测试\微博数据\3月微博数据.txt', "a", encoding='utf-8')
 
 
-    for page in range(1, sumpage + 1):
+    for page in range(6, sumpage + 1):
         browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202003&page=' + str(page))
         sleep(7)
 
@@ -37,7 +37,7 @@ def go():
         except IndexError:
             print('第' + str(page) + '页获取失败！正在尝试重新获取……')
             browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202003&page=' + str(page))
-            sleep(6)
+            sleep(9)
             try:
                 Infos = getContent(browser)
             except IndexError:
