@@ -55,7 +55,7 @@ def go():
 
             numOfComments = len(allComments[i])
             for j in range(0, numOfComments):
-                fw.write(str(j + 1) + '、' + allComments[i][j] + '\n')
+                fw.write(str(j + 1) + allComments[i][j] + '\n')
 
             fw.write('----------------------------------------------------------\n')
         print('第' + str(page) + '页写入成功。')
@@ -104,7 +104,7 @@ def getContent(browser):
         content = div.xpath('.//text()')
         Content = ''
         length = len(content)
-        for i in range(1, length):
+        for i in range(0, length):
             Content = Content + content[i]
             # 拼接content
         # 消去换行符等冗余符号，得到微博内容
