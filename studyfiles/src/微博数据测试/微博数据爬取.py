@@ -6,7 +6,6 @@ from time import sleep
 # 实现规避检测
 from selenium.webdriver import ChromeOptions
 import random
-import re
 
 
 def go():
@@ -26,7 +25,7 @@ def go():
     sleep(30)  # 手动登录微博
     sumpage = 38
     count = 1
-    fw = open(r'C:\Users\Ding\Desktop\Crawler-Studying\studyfiles\src\微博数据测试\微博数据\3月微博数据.txt', "w", encoding='utf-8')
+    fw = open(r'C:\Users\Ding\Desktop\Crawler-Studying\studyfiles\src\微博数据测试\微博数据\3月微博数据.txt', "a", encoding='utf-8')
 
 
     for page in range(1, sumpage + 1):
@@ -35,19 +34,25 @@ def go():
 
         try:
             Infos = getContent(browser)
-        except IndexError as e:
-            print('第' + str(page) + '页获取失败！')
-            continue
+        except IndexError:
+            print('第' + str(page) + '页获取失败！正在尝试重新获取……')
+            browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202003&page=' + str(page))
+            sleep(6)
+            try:
+                Infos = getContent(browser)
+            except IndexError:
+                print('重新获取失败！')
 
         allComments = getComment(page, browser)
 
-        validNum = min(len(Infos[0]), len(Infos[1]), len(allComments))
+        validNum = min(len(Infos[0]), len(Infos[1]), len(Infos[2]), len(allComments))
 
 
         for i in range(0, validNum):
             fw.write('第' + str(count) + '条微博：\n')
             count += 1
             fw.write('微博内容：' + Infos[0][i] + '\n')
+            fw.write('时间：' + Infos[2][i] + '\n')
             fw.write('转发数：' + Infos[1][i][0] + '\n')
             fw.write('评论数：' + Infos[1][i][1] + '\n')
             fw.write('点赞数：' + Infos[1][i][2] + '\n')
@@ -111,6 +116,13 @@ def getContent(browser):
         realContent = "".join(Content.split())
         realContents.append(realContent)
 
+    # 对微博时间的提取
+    details = tree.xpath('//div[@class="WB_detail"]')
+    times = []
+    for detail in details:
+        time = detail.xpath('./div[@class="WB_from S_txt2"]//text()')[1]
+        times.append(time)
+
     # 对转发、评论、点赞数的获取
     row_lines = tree.xpath('//ul[@class="WB_row_line WB_row_r4 clearfix S_line2"]')
     for row_line in row_lines:
@@ -123,7 +135,7 @@ def getContent(browser):
         otherInfo = [zhuan_fa_number, ping_lun_number, zan_number]
         otherInfos.append(otherInfo)
 
-    return [realContents, otherInfos]
+    return [realContents, otherInfos, times]
 
 def getComment(page, browser):
     # 首先再请求一次网页
