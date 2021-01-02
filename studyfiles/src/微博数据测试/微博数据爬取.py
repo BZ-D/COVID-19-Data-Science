@@ -26,7 +26,7 @@ def go():
     sleep(30)  # 手动登录微博
     sumpage = 38
     count = 1
-
+    fw = open(r'C:\Users\Ding\Desktop\Crawler-Studying\studyfiles\src\微博数据测试\微博数据\3月微博数据.txt', "w", encoding='utf-8')
 
 
     for page in range(1, sumpage + 1):
@@ -43,11 +43,10 @@ def go():
 
         validNum = min(len(Infos[0]), len(Infos[1]), len(allComments))
 
-        fw = open(r'C:\Users\Ding\Desktop\Crawler-Studying\studyfiles\src\微博数据测试\微博数据\3月微博数据.txt', "w", encoding='utf-8')
-        fw.write('第' + str(count) + '条微博：\n')
-        count += 1
 
         for i in range(0, validNum):
+            fw.write('第' + str(count) + '条微博：\n')
+            count += 1
             fw.write('微博内容：' + Infos[0][i] + '\n')
             fw.write('转发数：' + Infos[1][i][0] + '\n')
             fw.write('评论数：' + Infos[1][i][1] + '\n')
@@ -58,11 +57,11 @@ def go():
             for j in range(0, numOfComments):
                 fw.write(str(j + 1) + '、' + allComments[i][j] + '\n')
 
-        fw.write('----------------------------------------------------------')
-
-        fw.close()
+            fw.write('----------------------------------------------------------\n')
         print('第' + str(page) + '页写入成功。')
         sleep(10 + random.randint(1, 5))  # 设个随机的时间，不能爬太快
+
+    fw.close()
 
 
 def getContent(browser):
@@ -81,7 +80,7 @@ def getContent(browser):
     sleep(7)
     # 向下滚动加载后15条
     browser.execute_script('window.scrollTo(0,document.body.scrollHeight)')
-    sleep(7)
+    sleep(2)
 
     commentBtn = browser.find_elements_by_xpath('//ul[@class="WB_row_line WB_row_r4 clearfix S_line2"]/li[3]/a')
     # 找到最后一个评论展开按钮，按一下，更新页面信息，这时返回的page_source才是完整的，否则只会显示前15条
@@ -100,18 +99,16 @@ def getContent(browser):
 
     # 对正文内容的提取
     wb_text_list = tree.xpath('//div[@class="WB_text W_f14"]')
-    reg = '【.+(?=展开全文)'
-    pattern = re.compile(reg)
 
     for div in wb_text_list:
         content = div.xpath('.//text()')
         Content = ''
-        for string in content:
-            Content = Content + string
+        length = len(content)
+        for i in range(1, length):
+            Content = Content + content[i]
             # 拼接content
-        realContent = re.findall(pattern, Content)[0]
         # 消去换行符等冗余符号，得到微博内容
-        realContent = "".join(realContent.split())
+        realContent = "".join(Content.split())
         realContents.append(realContent)
 
     # 对转发、评论、点赞数的获取
@@ -138,7 +135,7 @@ def getComment(page, browser):
     browser.execute_script('window.scrollTo(0,document.body.scrollHeight)')
     sleep(7)
     browser.execute_script('window.scrollTo(0,document.body.scrollHeight)')
-    sleep(7)
+    sleep(2)
 
     commentBtn = browser.find_elements_by_xpath('//ul[@class="WB_row_line WB_row_r4 clearfix S_line2"]/li[3]/a')
     # 找到所有展开评论的按钮，并依次点击之，注意点击后获取的browser.page_source只有评论相关的内容，并不包含正文，所以要单独存储
@@ -151,7 +148,7 @@ def getComment(page, browser):
 
     html = browser.page_source
     tree = etree.HTML(html)
-    ul_list = tree.xpath('//div[@class="list_ul"]')
+    ul_list = tree.xpath('//div[@node-type="feed_list_commentList"]')
     allComments = []
 
     for ul in ul_list:
