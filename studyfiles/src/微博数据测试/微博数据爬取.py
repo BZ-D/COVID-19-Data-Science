@@ -18,25 +18,24 @@ def go():
         executable_path=r'C:\Users\Ding\Desktop\Crawler-Studying\studyfiles\src\前期学习\chromedriver.exe', options=option)
 
     # 请求
-    # 二月：人民网，疫情从扩散到逐渐控制稳定
+    # 二月：人民日报，疫情从扩散到逐渐控制稳定
     # 三月：央视新闻，聚焦于逐渐复工复产，英雄凯旋，快递恢复等
     # 四月：人民日报，中国疫情得到全面稳定控制，各地防控有序进行，外国疫情逐渐爆发、严重
-    browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202003&page=')
+    browser.get('https://weibo.com/rmrb?is_all=1&stat_date=202004&page=')
     sleep(30)  # 手动登录微博
     sumpage = 38
-    count = 214
-    fw = open(r'C:\Users\Ding\Desktop\Crawler-Studying\studyfiles\src\微博数据测试\微博数据\3月微博数据.txt', "a", encoding='utf-8')
+    count = 1
+    fw = open(r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\2月微博数据.txt', "a", encoding='utf-8')
 
-
-    for page in range(6, sumpage + 1):
-        browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202003&page=' + str(page))
+    for page in range(1, sumpage + 1):
+        browser.get('https://weibo.com/rmrb?is_all=1&stat_date=202004&page=' + str(page))
         sleep(7)
 
         try:
             Infos = getContent(browser)
         except IndexError:
             print('第' + str(page) + '页获取失败！正在尝试重新获取……')
-            browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202003&page=' + str(page))
+            browser.get('https://weibo.com/rmrb?is_all=1&stat_date=202004&page=' + str(page))
             sleep(9)
             try:
                 Infos = getContent(browser)
@@ -46,7 +45,6 @@ def go():
         allComments = getComment(page, browser)
 
         validNum = min(len(Infos[0]), len(Infos[1]), len(Infos[2]), len(allComments))
-
 
         for i in range(0, validNum):
             fw.write('第' + str(count) + '条微博：\n')
@@ -137,9 +135,10 @@ def getContent(browser):
 
     return [realContents, otherInfos, times]
 
+
 def getComment(page, browser):
     # 首先再请求一次网页
-    browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202003&page=' + str(page))
+    browser.get('https://weibo.com/rmrb?is_all=1&stat_date=202004&page=' + str(page))
     sleep(8)
     # 先scroll三次到最底部，每次scroll后等待7秒，加载全部45条微博内容
     browser.execute_script('window.scrollTo(0,document.body.scrollHeight)')
@@ -172,7 +171,6 @@ def getComment(page, browser):
         allComments.append(comments)
 
     return allComments
-
 
 
 if __name__ == '__main__':
