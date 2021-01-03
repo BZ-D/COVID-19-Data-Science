@@ -24,10 +24,10 @@ def go():
     browser.get('https://weibo.com/rmrb?is_all=1&stat_date=202004&page=')
     sleep(30)  # 手动登录微博
     sumpage = 38
-    count = 1
+    count = 1489
     fw = open(r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\2月微博数据.txt', "a", encoding='utf-8')
 
-    for page in range(1, sumpage + 1):
+    for page in range(36, sumpage + 1):
         browser.get('https://weibo.com/rmrb?is_all=1&stat_date=202004&page=' + str(page))
         sleep(7)
 
