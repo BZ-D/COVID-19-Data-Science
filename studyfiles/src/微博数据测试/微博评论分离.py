@@ -2,10 +2,10 @@
 import re
 
 
-path = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\5月微博数据（央视新闻）.txt'
+path = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\2021年1月微博数据（央视新闻）.txt'
 txt = open(path, 'r', encoding='utf-8')
 line = txt.readline()
-newFile = open(r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\5月评论.txt', 'w', encoding='utf-8')
+newFile = open(r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\评论文本\2021年1月评论.txt', 'w', encoding='utf-8')
 comments = []
 while line:
     if line != '评论内容：\n':
