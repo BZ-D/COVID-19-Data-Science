@@ -4,9 +4,11 @@ from collections import Counter
 import json
 
 srcFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\评论文本\1月评论.txt'
-stpWord = r'C:\Users\Ding\Desktop\stopwords\cn_stopwords.txt'
-newWord = r'C:\Users\Ding\Desktop\stopwords\new_words.txt'
-destFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\1月评论关键词.txt'
+stpWord = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\cn_stopwords（更新版）.txt'
+newWord = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\new_words.txt'
+destFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\KeyWords\2020年1月评论关键词.txt'
+cities = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\provinces&cities.txt'
+
 
 # 读取文件，返回文件的行字符串列表
 def readFile(fileName):
@@ -19,6 +21,7 @@ def readFile(fileName):
     for i in range(length):
         content[i] = ''.join(content[i].split())
         content[i] = content[i].replace('\u200b', '')
+        content[i] = content[i].replace('\u200d', '')
 
     return content
 
@@ -41,7 +44,10 @@ def delete_stopwords(lines):
 if __name__ == '__main__':
     lines = readFile(srcFile)
     validWords = delete_stopwords(lines)
-    sorted_words = sorted(validWords.items(), key=lambda d:d[1], reverse=True)
+    sorted_words = sorted(validWords.items(), key=lambda d: d[1], reverse=True)
 
+    f = open(destFile, 'w', encoding='utf-8')
     for word in sorted_words:
-        print(word)
+        f.write(word[0] + "," + str(word[1]) + '\n')
+
+    f.close()
