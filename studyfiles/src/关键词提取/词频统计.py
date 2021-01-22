@@ -1,13 +1,12 @@
 # -*- coding: UTF-8 -*-
 import jieba
 from collections import Counter
-import json
 
-srcFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\评论文本\1月评论.txt'
+srcFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\评论文本\2021年1月评论.txt'
 stpWord = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\cn_stopwords（更新版）.txt'
 newWord = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\new_words.txt'
-destFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\KeyWords\2020年1月评论关键词.txt'
-cities = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\provinces&cities.txt'
+destFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\KeyWords\2021年1月评论关键词.txt'
+citiesFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\provinces&cities.txt'
 
 
 # 读取文件，返回文件的行字符串列表
