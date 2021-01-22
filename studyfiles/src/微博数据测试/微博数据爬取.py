@@ -18,33 +18,33 @@ def go():
         executable_path=r'C:\Users\Ding\Desktop\Crawler-Studying\studyfiles\src\前期学习\chromedriver.exe', options=option)
 
     # 请求
-    # 一月：央视新闻，疫情没有得到重视
-    # 二月：人民日报，疫情从扩散到逐渐控制稳定
-    # 三月：央视新闻，聚焦于逐渐复工复产，英雄凯旋，快递恢复等
-    # 四月：人民日报，中国疫情得到全面稳定控制，各地防控有序进行，外国疫情逐渐爆发、严重
-    # 五月：央视新闻
-    # 十二月：人民日报，北京、河北、大连疫情开始反弹；
-    # 2021年一月：央视新闻，河北、黑龙江望奎疫情爆发
-    browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202101&page=')
-    sleep(30)  # 手动登录微博
-    sumpage = 22
+    # 一月：疫情没有得到重视
+    # 二月：疫情从扩散到逐渐控制稳定
+    # 三月：聚焦于逐渐复工复产，英雄凯旋，快递恢复等
+    # 四月五月：中国疫情得到全面稳定控制，各地防控有序进行，外国疫情逐渐爆发、严重
+    # 十二月：北京、河北、大连疫情开始反弹；
+    # 2021年一月：河北、黑龙江望奎疫情爆发
+    browser.get('https://weibo.com/rmrb?is_all=1&stat_date=202001&page=')
+    sleep(40)  # 手动登录微博
+    sumpage = 45
     count = 1
-    fw = open(r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\2021年1月微博数据（央视新闻）.txt', "a", encoding='utf-8')
+    fw = open(r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\1月微博数据（人民日报）.txt', "a", encoding='utf-8')
 
-    for page in range(3, sumpage + 1):
-        browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202101&page=' + str(page))
+    for page in range(1, sumpage + 1):
+        browser.get('https://weibo.com/rmrb?is_all=1&stat_date=202001&page=' + str(page))
         sleep(7)
 
         try:
             Infos = getContent(browser)
         except IndexError:
             print('第' + str(page) + '页获取失败！正在尝试重新获取……')
-            browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202101&page=' + str(page))
+            browser.get('https://weibo.com/rmrb?is_all=1&stat_date=202001&page=' + str(page))
             sleep(9)
             try:
                 Infos = getContent(browser)
             except IndexError:
                 print('重新获取失败！')
+                continue
 
         allComments = getComment(page, browser)
 
@@ -142,7 +142,7 @@ def getContent(browser):
 
 def getComment(page, browser):
     # 首先再请求一次网页
-    browser.get('https://weibo.com/cctvxinwen?is_all=1&stat_date=202101&page=' + str(page))
+    browser.get('https://weibo.com/rmrb?is_all=1&stat_date=202001&page=' + str(page))
     sleep(8)
     # 先scroll三次到最底部，每次scroll后等待7秒，加载全部45条微博内容
     browser.execute_script('window.scrollTo(0,document.body.scrollHeight)')
