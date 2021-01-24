@@ -2,10 +2,10 @@
 import jieba
 from collections import Counter
 
-srcFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\评论文本\2021年1月评论.txt'
+srcFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\评论文本\2020年12月及2021年1月评论.txt'
 stpWord = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\cn_stopwords（更新版）.txt'
 newWord = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\new_words.txt'
-destFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\KeyWords\2021年1月评论关键词.txt'
+destFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\KeyWords\2020年12月及2021年1月评论关键词.txt'
 citiesFile = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\provinces&cities.txt'
 
 

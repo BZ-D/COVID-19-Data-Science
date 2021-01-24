@@ -1,14 +1,15 @@
 import math
 
 # 评论文件，用于计算IDF
-commentpath = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\评论文本\2021年1月评论.txt'
+commentpath = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\评论文本\2020年12月及2021年1月评论.txt'
 # 逆序词频文件
-filepath = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\KeyWords\2021年1月评论关键词.txt'
+filepath = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\KeyWords\2020年12月及2021年1月评论关键词.txt'
 # 未排序的TF-IDF
-dest = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\TF-IDF\2021年1月词频.txt'
+dest = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\TF-IDF\2020年12月及2021年1月词频.txt'
 # 排序后的TF-IDF
-dest_sorted = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\TF-IDF\2021年1月TF-IDF.txt'
-
+dest_sorted = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\TF-IDF\2020年5月TF-IDF.txt'
+# 最终前100关键词存放处
+top100 = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\FinalKeyWords\2020年5月前100关键词.txt'
 
 def readLines(fileName):
     f = open(fileName, 'r', encoding='utf-8')
@@ -56,17 +57,8 @@ def tf_idf():
 
     destfile.close()
 
-    # 总共：352689次
-    # 1月：63432
-    # 2月：89235
-    # 3月：55353
-    # 4月：52137
-    # 5月：42781
-    # 12月：20773
-    # 2021年1月：28978
 
-
-def keywords():
+def sorted_tfIdf():
     # 排序方法
     lines = readLines(dest)
     dict = {}
@@ -81,5 +73,18 @@ def keywords():
         f.write(word[0] + str(word[1]) + '\n')
     f.close()
 
+
+def get_100_keywords():
+    lines = readLines(dest_sorted)[:100]
+    f = open(top100, 'w', encoding='utf-8')
+    for line in lines:
+        aline = line.split(',')
+        f.write(aline[0][5:] + '\n')
+    f.close()
+
+
+
+
+
 if __name__ == '__main__':
-    keywords()
+    get_100_keywords()

@@ -3,9 +3,9 @@ xin_tai_value = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分�
 locationsrc = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\provinces&cities.txt'
 
 # 已经排好序的tf—idf文件路径
-tf_idfSrc = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\TF-IDF\2021年1月TF-IDF.txt'
+tf_idfSrc = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\关键词提取\TF-IDF\2020年12月及2021年1月TF-IDF.txt'
 # 碰撞后的心态频数存放处
-dest = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\心态分析\各阶段心态词频\2021年1月心态词频.txt'
+dest = r'C:\Users\Ding\Desktop\Crawler-Studying\微博数据\评论分离\心态分析\各阶段心态词频\2020年12月及2021年1月心态词频.txt'
 
 
 def readLines(filename):
@@ -29,7 +29,7 @@ def getTerm(filename):
     for line in lines:
         aline = line.split(',')
         terms.append(aline[0][5:])
-        freq.append(int(aline[1][5:]))
+        freq.append(int(aline[1][6:]))
     return [terms, freq]
 
 
