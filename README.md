@@ -24,7 +24,7 @@ bonus2、**机器学习：**利用机器学习的方法建立一个文本分类�
 
 先验为多项式分布的朴素贝叶斯：
 
-![img](http://a1.qpic.cn/psc?/V10qPHDm2OqGNV/ruAMsa53pVQWN7FLK88i5hncHm2CRFRmTJNf15QOzNEAU7.T4FJ1lZhYmw0vXFZkQdPSXx11lajsyEiuO64tPG*gRwJieql8RhBDfxN5YR4!/b&ek=1&kp=1&pt=0&bo=NwFGAAAAAAADF0I!&tl=1&vuin=1048927295&tm=1611543600&sce=60-2-2&rf=viewer_4)
+![](./README.assets/QQ截图20210125115910.png)
 
 根据五个阶段文本特征对各阶段新闻文本进行归类，采用朴素贝叶斯的原理以及PCA降维                          √
 
