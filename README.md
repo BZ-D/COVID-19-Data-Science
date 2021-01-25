@@ -24,9 +24,8 @@ bonus2、**机器学习：**利用机器学习的方法建立一个文本分类�
 
 先验为多项式分布的朴素贝叶斯：
 
-$$
-P(X_j=x_{jl}|Y=C_k) = \frac{x_{jl} + \lambda}{m_k + n\lambda}
-$$
+![img](http://a1.qpic.cn/psc?/V10qPHDm2OqGNV/ruAMsa53pVQWN7FLK88i5hncHm2CRFRmTJNf15QOzNEAU7.T4FJ1lZhYmw0vXFZkQdPSXx11lajsyEiuO64tPG*gRwJieql8RhBDfxN5YR4!/b&ek=1&kp=1&pt=0&bo=NwFGAAAAAAADF0I!&tl=1&vuin=1048927295&tm=1611543600&sce=60-2-2&rf=viewer_4)
+
 根据五个阶段文本特征对各阶段新闻文本进行归类，采用朴素贝叶斯的原理以及PCA降维                          √
 
 bonus3、**汇报：**提交汇报申请和完成汇报PPT                                                                                                  √
